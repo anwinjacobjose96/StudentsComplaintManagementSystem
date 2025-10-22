@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusCare - College Complaint System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Hero/Landing Section -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <div class="hero-content">
+                        <h1 class="display-3 fw-bold mb-4">CampusCare</h1>
+                        <p class="hero-subtitle mb-5">Transform your campus experience. Report issues, track resolutions, and make your voice heard.</p>
+                        <button class="btn btn-primary btn-lg px-5 py-3 hero-cta" id="getStartedBtn">
+                            Get Started Now <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                        
+                        <!-- Quick Stats -->
+                        <div class="row mt-5 justify-content-center">
+                            <div class="col-auto">
+                                <div class="text-center">
+                                    <h3 class="text-white mb-3">Trusted by Students</h3>
+                                    <div class="d-flex gap-4 justify-content-center">
+                                        <div class="text-center">
+                                            <h4 class="text-warning mb-1" id="heroComplaintsCount">0</h4>
+                                            <small class="text-light">Complaints Resolved</small>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="text-warning mb-1" id="heroStudentsCount">0</h4>
+                                            <small class="text-light">Active Students</small>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4 class="text-warning mb-1" id="heroSuccessRate">0%</h4>
+                                            <small class="text-light">Success Rate</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login/Signup Page -->
+    <div id="auth-page" class="min-vh-100 d-flex align-items-center justify-content-center py-5 hidden">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="login-container">
+                        <div class="login-header">
+                            <div class="user-avatar">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h2>CampusCare</h2>
+                            <p class="mb-0">Your campus issue resolution platform</p>
+                        </div>
+                        <div class="card-body p-4 p-md-5">
+                            <div class="d-flex justify-content-center mb-4">
+                                <button class="tab-button active" id="loginTab">Login</button>
+                                <button class="tab-button" id="signupTab">Sign Up</button>
+                            </div>
+                            
+                            <div id="login-form">
+                                <form id="loginForm">
+                                    <div class="mb-3">
+                                        <label for="loginUsername" class="form-label">Username</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent"><i class="fas fa-user"></i></span>
+                                            <input type="text" class="form-control" id="loginUsername" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="loginPassword" class="form-label">Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent"><i class="fas fa-lock"></i></span>
+                                            <input type="password" class="form-control" id="loginPassword" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Login as:</label>
+                                        <div class="d-flex gap-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="userType" id="studentRadio" value="student" checked>
+                                                <label class="form-check-label" for="studentRadio">
+                                                    <i class="fas fa-user-graduate me-1"></i> Student
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="userType" id="adminRadio" value="admin">
+                                                <label class="form-check-label" for="adminRadio">
+                                                    <i class="fas fa-user-shield me-1"></i> Admin
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-3" id="loginSubmitBtn">
+                                        <i class="fas fa-sign-in-alt me-2"></i> Login
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <div id="signup-form" class="hidden">
+                                <form id="signupForm">
+                                    <div class="mb-3">
+                                        <label for="signupName" class="form-label">Full Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent"><i class="fas fa-id-card"></i></span>
+                                            <input type="text" class="form-control" id="signupName" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="signupUsername" class="form-label">Username</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent"><i class="fas fa-user"></i></span>
+                                            <input type="text" class="form-control" id="signupUsername" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="signupPassword" class="form-label">Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent"><i class="fas fa-lock"></i></span>
+                                            <input type="password" class="form-control" id="signupPassword" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="signupDepartment" class="form-label">Department</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent"><i class="fas fa-building"></i></span>
+                                            <select class="form-select" id="signupDepartment" required>
+                                                <option value="">Select Department</option>
+                                                <option value="CSE">CSE</option>
+                                                <option value="ME">ME</option>
+                                                <option value="EEE">EEE</option>
+                                                <option value="ADS">ADS</option>
+                                                <option value="CSBS">CSBS</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success w-100 py-3" id="signupSubmitBtn">
+                                        <i class="fas fa-user-plus me-2"></i> Sign Up
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" class="hidden">
+        <div class="dashboard-bg">
+            <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+                <div class="container">
+                    <a class="navbar-brand fw-bold" href="#">
+                        <i class="fas fa-graduation-cap me-2"></i> CampusCare
+                    </a>
+                    <div class="navbar-nav ms-auto">
+                        <span class="navbar-text me-3">Welcome, <span id="studentName"></span></span>
+                        <button class="btn btn-outline-primary btn-sm" id="studentLogout">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container mt-4">
+                <div class="welcome-banner fade-in">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3>Welcome back, <span id="bannerStudentName"></span>!</h3>
+                            <p class="mb-0">We're here to help resolve your campus issues efficiently.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="bg-white rounded-pill px-3 py-2 d-inline-block">
+                                <small class="text-primary">
+                                    <i class="fas fa-calendar-day me-1"></i> 
+                                    <span id="currentDate"></span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="dashboard-card p-4 mb-4">
+                            <h4 class="mb-4"><i class="fas fa-plus-circle me-2"></i>Submit a Complaint</h4>
+                            <form id="complaintForm">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="complaintName" class="form-label">Student Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent"><i class="fas fa-user"></i></span>
+                                            <input type="text" class="form-control" id="complaintName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="complaintDept" class="form-label">Department</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent"><i class="fas fa-building"></i></span>
+                                            <select class="form-select" id="complaintDept" required>
+                                                <option value="">Select Department</option>
+                                                <option value="CSE">CSE</option>
+                                                <option value="ME">ME</option>
+                                                <option value="EEE">EEE</option>
+                                                <option value="ADS">ADS</option>
+                                                <option value="CSBS">CSBS</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="complaintCategory" class="form-label">Category</label>
+                                    <select class="form-select" id="complaintCategory" required>
+                                        <option value="">Select Category</option>
+                                        <option value="academic">Academic</option>
+                                        <option value="facilities">Facilities</option>
+                                        <option value="administrative">Administrative</option>
+                                        <option value="technology">Technology</option>
+                                        <option value="safety">Safety & Security</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Priority</label>
+                                    <div class="btn-group w-100" role="group">
+                                        <input type="radio" class="btn-check" name="priority" id="low" value="low" checked>
+                                        <label class="btn btn-outline-success" for="low">Low</label>
+                                        
+                                        <input type="radio" class="btn-check" name="priority" id="medium" value="medium">
+                                        <label class="btn btn-outline-warning" for="medium">Medium</label>
+                                        
+                                        <input type="radio" class="btn-check" name="priority" id="high" value="high">
+                                        <label class="btn btn-outline-danger" for="high">High</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="complaintTitle" class="form-label">Issue Title</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent"><i class="fas fa-heading"></i></span>
+                                        <input type="text" class="form-control" id="complaintTitle" required>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="complaintDescription" class="form-label">Description</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent"><i class="fas fa-align-left"></i></span>
+                                        <textarea class="form-control" id="complaintDescription" rows="4" required></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary py-2 px-4" id="complaintSubmitBtn">
+                                    <i class="fas fa-paper-plane me-2"></i> Submit Complaint
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dashboard-card p-4 mb-4 text-center">
+                            <h5><i class="fas fa-list-alt me-2"></i>My Complaints</h5>
+                            <h2 id="myComplaintsCount" class="text-primary mt-2">0</h2>
+                            <p class="text-muted">Total complaints submitted</p>
+                        </div>
+                        <div class="dashboard-card p-4 mb-4 text-center">
+                            <h5><i class="fas fa-chart-pie me-2"></i>Status Overview</h5>
+                            <div class="d-flex justify-content-around mt-3">
+                                <div>
+                                    <h4 id="pendingCount" class="text-warning">0</h4>
+                                    <p class="text-muted">Pending</p>
+                                </div>
+                                <div>
+                                    <h4 id="resolvedCount" class="text-success">0</h4>
+                                    <p class="text-muted">Resolved</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card p-4">
+                            <h5 class="card-title"><i class="fas fa-chart-line me-2"></i>Resolution Progress</h5>
+                            <div class="mt-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Resolved Issues</span>
+                                    <span id="resolutionRate">0%</span>
+                                </div>
+                                <div class="progress">
+                                    <div id="resolutionProgress" class="progress-bar bg-success" style="width: 0%"></div>
+                                </div>
+                                <small class="text-muted">Your complaint resolution rate</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4><i class="fas fa-clipboard-list me-2"></i>All Complaints</h4>
+                    <div class="d-flex gap-2">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" class="form-control" id="searchComplaints" placeholder="Search complaints...">
+                        </div>
+                        <select class="form-select w-auto" id="sortComplaints">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="status">By Status</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="complaintsList">
+                    <!-- Complaints will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="hidden">
+        <div class="dashboard-bg">
+            <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+                <div class="container">
+                    <a class="navbar-brand fw-bold" href="#">
+                        <i class="fas fa-graduation-cap me-2"></i> CampusCare - Admin
+                    </a>
+                    <div class="navbar-nav ms-auto">
+                        <button class="btn btn-outline-primary btn-sm" id="adminLogout">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container mt-4">
+                <div class="welcome-banner fade-in">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3>Admin Dashboard</h3>
+                            <p class="mb-0">Manage and resolve student complaints efficiently.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="bg-white rounded-pill px-3 py-2 d-inline-block">
+                                <small class="text-primary">
+                                    <i class="fas fa-calendar-day me-1"></i> 
+                                    <span id="adminCurrentDate"></span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-list-alt me-2"></i>Total Complaints</h5>
+                            <h2 id="adminTotalComplaints">0</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-clock me-2"></i>Pending</h5>
+                            <h2 id="adminPendingCount">0</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-check-circle me-2"></i>Resolved</h5>
+                            <h2 id="adminResolvedCount">0</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-users me-2"></i>Students</h5>
+                            <h2 id="adminStudentCount">0</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0"><i class="fas fa-list me-2"></i>All Complaints</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary me-2" id="showAllBtn">All</button>
+                            <button class="btn btn-sm btn-outline-warning me-2" id="showPendingBtn">Pending</button>
+                            <button class="btn btn-sm btn-outline-success" id="showResolvedBtn">Resolved</button>
+                        </div>
+                    </div>
+                    <div id="adminComplaintsList">
+                        <!-- Admin complaints will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/student-dashboard.js"></script>
+    <script type="module" src="js/admin-dashboard.js"></script>
+</body>
